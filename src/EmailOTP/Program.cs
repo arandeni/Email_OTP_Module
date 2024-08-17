@@ -1,4 +1,6 @@
 
+using EmailOTP.Services;
+
 namespace EmailOTP
 {
     public class Program
@@ -8,11 +10,22 @@ namespace EmailOTP
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IOTPService, OTPService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -27,6 +40,7 @@ namespace EmailOTP
 
             app.UseAuthorization();
 
+            app.UseSession();
 
             app.MapControllers();
 

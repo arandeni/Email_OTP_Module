@@ -2,7 +2,7 @@
 
 namespace EmailOTP.Services
 {
-    public class OTPService
+    public class OTPService : IOTPService
     {
         /// <summary>
         /// Generate OTP code

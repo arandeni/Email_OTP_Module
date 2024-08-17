@@ -1,6 +1,11 @@
 @EmailOTP_HostAddress = http://localhost:5114
 
-GET {{EmailOTP_HostAddress}}/weatherforecast/
+POST {{EmailOTP_HostAddress}}/api/Email_OTP_Module/GenerateOTP/test@dso.org.sg
+Accept: application/json
+
+###
+
+POST {{EmailOTP_HostAddress}}/api/Email_OTP_Module/CheckOTP/test@dso.org.sg/195684
 Accept: application/json
 
 ###
